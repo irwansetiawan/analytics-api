@@ -15,7 +15,8 @@ func WriteEvent(data map[string]string) {
 		// Connect to the Aerospike cluster
 		client, err := as.NewClient(host, port)
 		if err != nil {
-			log.Fatalf("Failed to connect to Aerospike: %v", err)
+			log.Printf("Failed to connect to Aerospike: %v", err)
+			return
 		}
 		defer client.Close()
 
@@ -26,7 +27,8 @@ func WriteEvent(data map[string]string) {
 		// Create a key
 		key, err := as.NewKey(namespace, set, "key1")
 		if err != nil {
-			log.Fatalf("Failed to create key: %v", err)
+			log.Printf("Failed to create key: %v", err)
+			return
 		}
 
 		// Create a record with some bins
@@ -35,7 +37,8 @@ func WriteEvent(data map[string]string) {
 		// Write the record to the database
 		err = client.Put(nil, key, bins)
 		if err != nil {
-			log.Fatalf("Failed to write record: %v", err)
+			log.Printf("Failed to write record: %v", err)
+			return
 		}
 
 		log.Println("Record written successfully")
