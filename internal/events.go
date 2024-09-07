@@ -33,7 +33,10 @@ func WriteEvent(data map[string]string) {
 		}
 
 		// Create a record with some bins
-		bins := as.BinMap{"data": data}
+		bins := as.BinMap{}
+		for key, value := range data {
+			bins[key] = value
+		}
 
 		// Write the record to the database
 		err = client.Put(nil, key, bins)
