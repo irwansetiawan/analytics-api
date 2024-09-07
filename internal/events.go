@@ -4,6 +4,7 @@ import (
 	"log"
 
 	as "github.com/aerospike/aerospike-client-go/v6"
+	"github.com/google/uuid"
 )
 
 func WriteEvent(data map[string]string) {
@@ -25,7 +26,7 @@ func WriteEvent(data map[string]string) {
 		set := "demo"
 
 		// Create a key
-		key, err := as.NewKey(namespace, set, "key1")
+		key, err := as.NewKey(namespace, set, uuid.New().String())
 		if err != nil {
 			log.Printf("Failed to create key: %v", err)
 			return
